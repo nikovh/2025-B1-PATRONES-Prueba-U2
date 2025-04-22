@@ -11,13 +11,15 @@ public class Producto {
 	private String imagen;
 	private Long costo;	  
 	private List<Stock> stocks = new ArrayList<>();
+	private Long idCategoria;
 	
-	public Producto(String sku, String nombre, Long costo, String imagen) {
+	public Producto(String sku, String nombre, Long costo, String imagen, Long idCategoria) {
 		super();
 		this.sku = sku;
 		this.nombre = nombre;
 		this.costo = costo;
 		this.imagen = imagen;
+		this.idCategoria = idCategoria;
 	}
 	public Producto() {
 		super();
@@ -58,10 +60,16 @@ public class Producto {
 	public void setSku(String sku) {
 		this.sku = sku;
 	}
+
+	public Long getIdCategoria() {
+		return idCategoria;
+	}
+	public void setIdCategoria(Long idCategoria) {
+		this.idCategoria = idCategoria;
+	}
+
 	@Override
 	public String toString() {
 		return "Producto [id=" + id + ", nombre=" + nombre + ", costo=" + costo + ", stocks=" + stocks.stream().mapToInt(Stock::getCantidad).sum() + "]";
 	}
-
-	
 }
