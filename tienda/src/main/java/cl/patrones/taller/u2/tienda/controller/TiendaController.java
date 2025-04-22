@@ -12,6 +12,7 @@ public class TiendaController {
 	public String inicio(Model model) {
 		// TODO: Actividad 2: Avisos
 		//model.addAttribute("avisos", avisos);
+		List<Producto> productos = productoService
 		return "inicio";
 	}
 		

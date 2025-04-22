@@ -1,3 +1,4 @@
+/*
 package cl.patrones.taller.u2.tienda.controller;
 
 
@@ -60,4 +61,47 @@ public class MenuControllerAdvice {
 		
 		return cateMenu;
 	}
+}
+*/
+
+package cl.patrones.taller.u2.tienda.controller;
+
+import java.util.List;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import cl.patrones.taller.u2.tienda.menu.ItemMenu;
+
+@ControllerAdvice
+public class MenuControllerAdvice {
+
+	private final CategoriaService categoriaService;
+
+	public MenuControllerAdvice(CategoriaService categoriaService) {
+		this.categoriaService = categoriaService;
+	}
+
+	@ModelAttribute("menu")
+	public List<ItemMenu> menu() {
+		// TODO: Actividad 1
+		List<ItemMenu> menu (){
+			List<ItemMenu> menu = new ArrayList<>();
+			menu.add(new EnlaceItemMenu("Inicio", "/"));
+			menu.add(new EnlaceItemMenu("Ubicacion", "/ubicacion"));
+			menu.add(new EnlaceItemMenu("Contacto", "/contacto"));
+
+			var categorias = categoriaService.getCategoriasPadre();
+			for (Categoria cate : categorias) {
+				var itemCate = crearCategoriaRecursiva(cate);
+				menu.add(itemCate);
+			}
+			return menu;
+		}
+
+		private ItemMenu crearCategoriaRecursiva(Categoria categoria) {
+			String slug = 
+		}
+		
+		return List.of();
+	}
+	
 }
