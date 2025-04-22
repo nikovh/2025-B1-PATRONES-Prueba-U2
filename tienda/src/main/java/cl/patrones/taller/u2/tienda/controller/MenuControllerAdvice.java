@@ -7,15 +7,50 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import cl.patrones.taller.u2.tienda.menu.ItemMenu;
+import cl.patrones.taller.u2.tienda.menu.CategoriaMenu;
+import cl.patrones.taller.u2.tienda.menu.EnlaceItemMenu;
+import cl.patrones.taller.u2.tienda.menu.util.Slugger;
+import cl.patrones.taller.u2.catalogo.domain.Categoria;
+import cl.patrones.taller.u2.catalogo.service.CategoriaService;
+
 
 @ControllerAdvice
 public class MenuControllerAdvice {
 
+	private final CategoriaService categoriaService;
+
+	public MenuControllerAdvice(CategoriaService categoriaService) {
+		this.categoriaService = categoriaService;
+	}
 
 	@ModelAttribute("menu")
 	public List<ItemMenu> menu() {
 		// TODO: Actividad 1
-		return List.of();
+		List<ItemMenu> menu = new ArrayList<>();
+
+		menu.add(new EnlaceItemMenu("Inicio", "/"));
+		menu.add(new EnlaceItemMenu("Ubicación", "/ubicacion"));
+		menu.add(new EnlaceItemMenu("Contacto", "/contacto"));
+
+		CategoriaMenu menuCategorias = new CategoriaMenu("Categorías", "/categorias");
+		List<Categoria> categoriasRaiz = categoriaService.getCategoriasRaiz();
+
+		for (Categoria cate : categoriasRaiz) {
+			menuCategorias.agregarSubcategoria(construirDesdeCategoria(cate));
+		}
+		menu.add(menuCategorias);
+		return menu;
+
 	}
-	
+
+	private CategoriaMenu construirDesdeCategoria(Categoria categoria) {
+		String slug = Slugger.toSlug(categoria.getNombre());
+		String enlace = "/categoria/" + categoria.getId() + "/" + slug;
+		CategoriaMenu cateMenu = new CategoriaMenu(categoria.getNombre(), enlace);
+
+		for (Categoria subcate : categoria.getSubcategorias()) {
+			cateMenu.agregarSubcategoria(construirDesdeCategoria(subcate));
+		}
+		return cateMenu;
+	}
 }
