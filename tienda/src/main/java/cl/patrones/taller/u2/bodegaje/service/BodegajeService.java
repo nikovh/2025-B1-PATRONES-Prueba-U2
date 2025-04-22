@@ -7,6 +7,8 @@ import cl.patrones.taller.u2.bodegaje.domain.Producto;
 
 public interface BodegajeService {
 	
+	int getStockTotalPorProducto(Long idProducto);
+
 	public List<Producto> getProductos();
 
 	public List<Producto> getProductosBySku(String... skus);

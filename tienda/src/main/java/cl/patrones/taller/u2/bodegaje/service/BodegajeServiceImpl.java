@@ -31,5 +31,16 @@ public class BodegajeServiceImpl implements BodegajeService {
 	public Optional<Producto> getProductoBySku(String sku) {
 		return productoRepository.findBySku(sku);
 	}
+
+	@Override
+	public int getStockTotalPorProducto(Long idProducto) {
+		return productoRepository.findById(idProducto)
+			.map(producto -> producto.getStocks().stream()
+				.mapToInt(stock -> stock.getCantidad())
+				.sum()
+			)
+			.orElse(0);
+	}
+
 	
 }
