@@ -2,6 +2,7 @@ package cl.patrones.taller.u2.tienda.controller;
 
 
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,12 +33,14 @@ public class MenuControllerAdvice {
 		menu.add(new EnlaceItemMenu("Ubicación", "/ubicacion"));
 		menu.add(new EnlaceItemMenu("Contacto", "/contacto"));
 
-		CategoriaMenu menuCategorias = new CategoriaMenu("Categorías", "/categorias");
-		List<Categoria> categoriasRaiz = categoriaService.getCategoriasRaiz();
-
-		for (Categoria cate : categoriasRaiz) {
-			menuCategorias.agregarSubcategoria(construirDesdeCategoria(cate));
+		CategoriaMenu menuCategorias = new CategoriaMenu("Categorías", "/categoria");
+		List<Categoria> categorias = categoriaService.getCategorias();
+		if (categorias != null && !categorias.isEmpty()){
+			for (Categoria cate : categorias) {
+				menuCategorias.agregarSubcategoria(construirDesdeCategoria(cate));
+			}
 		}
+		
 		menu.add(menuCategorias);
 		return menu;
 
@@ -46,11 +49,15 @@ public class MenuControllerAdvice {
 	private CategoriaMenu construirDesdeCategoria(Categoria categoria) {
 		String slug = Slugger.toSlug(categoria.getNombre());
 		String enlace = "/categoria/" + categoria.getId() + "/" + slug;
+		
 		CategoriaMenu cateMenu = new CategoriaMenu(categoria.getNombre(), enlace);
 
-		for (Categoria subcate : categoria.getSubcategorias()) {
-			cateMenu.agregarSubcategoria(construirDesdeCategoria(subcate));
+		if (categoria.getSubcategorias() != null && !categoria.getSubcategorias().isEmpty()) {
+			for (Categoria subcate : categoria.getSubcategorias()) {
+				cateMenu.agregarSubcategoria(construirDesdeCategoria(subcate));
+			}
 		}
+		
 		return cateMenu;
 	}
 }

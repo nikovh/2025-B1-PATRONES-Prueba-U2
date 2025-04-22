@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
 
-import cl.patrones.taller.u2.tienda.modelo.Categoria;
+
 
 public class EnlaceItemMenu implements ItemMenu {
     
@@ -44,9 +44,9 @@ public class EnlaceItemMenu implements ItemMenu {
     }
 
     private String generarSlug(String enlace) {
-        if (enlace == null || !enlace.contains("/")) return "";
+        if (enlace == null || enlace.isBlank() || !enlace.contains("/")) return "";
         String[] partes = enlace.split("/");
-        return partes[partes.length - 1];
+        return partes.length > 0 ? partes[partes.length - 1] : "";
     }
 }
 

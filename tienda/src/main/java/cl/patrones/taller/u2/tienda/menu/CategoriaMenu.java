@@ -3,7 +3,7 @@ package cl.patrones.taller.u2.tienda.menu;
 import java.util.ArrayList;
 import java.util.List;
 
-import cl.patrones.taller.u2.tienda.modelo.Categoria;
+
 
 public class CategoriaMenu implements ItemMenu {
     
