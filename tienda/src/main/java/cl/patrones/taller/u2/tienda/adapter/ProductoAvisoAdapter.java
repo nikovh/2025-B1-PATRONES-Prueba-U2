@@ -4,7 +4,7 @@ import cl.patrones.taller.u2.bodegaje.domain.Producto;
 import cl.patrones.taller.u2.catalogo.domain.Aviso;
 import cl.patrones.taller.u2.catalogo.domain.Categoria;
 import cl.patrones.taller.u2.catalogo.service.CategoriaService;
-import cl.patrones.taller.u2.bodegaje.service.StockService;
+import cl.patrones.taller.u2.bodegaje.service.BodegajeService;
 
 public class ProductoAvisoAdapter {
 
@@ -18,7 +18,7 @@ public class ProductoAvisoAdapter {
 
     public Aviso adaptar(Producto producto) { 
         
-        Categoria categoria = categoriaService.getCategoriaPorIdOrNull(producto.getId()):
+        Categoria categoria = categoriaService.getCategoriaPorIdOrNull(producto.getId());
         int stock = bodegajeService.getStockTotalPorProducto(producto.getId());
         Long precio = Math.round(producto.getCosto() * 1.3);
 

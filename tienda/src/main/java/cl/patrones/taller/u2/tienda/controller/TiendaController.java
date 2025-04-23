@@ -50,7 +50,7 @@ public class TiendaController {
 		//model.addAttribute("avisos", avisos);
 		//model.addAttribute("categoria", categoria);
 		Categoria categoria = categoriaService.getCategoriaPorIdOrNull(categoriaId);
-		List<Produto> productos = bodegajeService.getProductos();
+		List<Producto> productos = bodegajeService.getProductos();
 		List<Producto> productosFiltrados = productos.stream()
 			.filter(p -> p.getIdCategoria().equals(categoriaId))
 			.collect(Collectors.toList());
