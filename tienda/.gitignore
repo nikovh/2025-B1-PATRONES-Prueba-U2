@@ -1,2 +1,7 @@
-# Ignorar caches de Gradle
-.gradle/
+# Ignorar carpetas de compilación de Gradle/Java
+/.gradle/
+/build/
+/out/
+/target/
+/*.class
+*.jar

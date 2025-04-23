@@ -35,6 +35,7 @@ public class MenuControllerAdvice {
 				menuCategorias.agregarSubcategoria(construirDesdeCategoria(cate));
 			}
 		}
+		menu.add(menuCategorias);
 
 		menu.add(new EnlaceItemMenu("Ubicacion", "/ubicacion"));
 		menu.add(new EnlaceItemMenu("Contacto", "/contacto"));
@@ -52,7 +53,6 @@ public class MenuControllerAdvice {
 				cateMenu.agregarSubcategoria(construirDesdeCategoria(subcate));
 			}
 		}
-		
 		return cateMenu; 
     }
 }

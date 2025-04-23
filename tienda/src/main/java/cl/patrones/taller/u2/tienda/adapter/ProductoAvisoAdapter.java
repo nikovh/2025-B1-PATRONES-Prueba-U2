@@ -18,14 +18,18 @@ public class ProductoAvisoAdapter {
 
     public Aviso adaptar(Producto producto) { 
         
-        Categoria categoria = categoriaService.getCategoriaPorIdOrNull(producto.getId());
+        // Categoria categoria = categoriaService.getCategoriaPorIdOrNull(producto.getId());
+        Categoria categoria = null;
+        if (producto.getIdCategoria() != null) {
+            categoria = categoriaService.getCategoriaPorIdOrNull(producto.getIdCategoria());
+        }
         int stock = bodegajeService.getStockTotalPorProducto(producto.getId());
         Long precio = Math.round(producto.getCosto() * 1.3);
 
         return new Aviso(
             producto.getId(),
             producto.getSku(),
-            producto.getTitulo(),
+            producto.getNombre(),
             precio,
             producto.getImagen(),
             stock,

@@ -52,7 +52,7 @@ public class TiendaController {
 		Categoria categoria = categoriaService.getCategoriaPorIdOrNull(categoriaId);
 		List<Producto> productos = bodegajeService.getProductos();
 		List<Producto> productosFiltrados = productos.stream()
-			.filter(p -> p.getIdCategoria().equals(categoriaId))
+			.filter(p -> categoriaId.equals(p.getIdCategoria()))
 			.collect(Collectors.toList());
 		
 		ProductoAvisoAdapter adapter = new ProductoAvisoAdapter(categoriaService, bodegajeService);
